@@ -1,0 +1,15 @@
+Docker Volumes:
+
+    Volumes are created to store data of the containers. If the containers are deleted the data remains in the volumes.
+    TO create volume:
+        docker volume create
+    To list the volumes:
+        docker volume list
+    To get more info of volume:
+        docker volume inscept <volume-name>
+    To remove the volumes:
+        docker volume rm <volume-name>
+        docker volume prune
+    To start a container with volume:
+        docker run --volume /var/lib/postgres/data:/var/lib/postgres/data
+        

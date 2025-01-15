@@ -1,0 +1,4 @@
+Bridge Network:
+    docker run -p 127.0.0.1:8080:80 -p '[::1]:8080:80' nginx
+    Note: This is not a secure way to create a network for containers. Since the ports are exposed.
+    
