@@ -1,4 +1,44 @@
 Bridge Network:
-    docker run -p 127.0.0.1:8080:80 -p '[::1]:8080:80' nginx
-    Note: This is not a secure way to create a network for containers. Since the ports are exposed.
+
+    $ docker network create -d bridge my-bridge-net
+    
+    In bridge networking to make containers communicate with outside world port maping is done.
+    
+    As an example, consider you can have a Docker container running a web service on port  80  . 
+    Because this container is attached to the bridge network on a private subnet, 
+    a port on the host system like  8000  needs to be mapped to port  80 on the container 
+    for outside traffic to reach the web service.
+
+Overlay Network:
+
+    An overlay network driver is used for multi-host network communication.
+    
+    Virtual Extensible LAN (VXLAN) technology which provide portability between cloud, 
+    on-premise and virtual environments.
+    
+    Extending layer 2 subnets across layer 3 network boundaries, 
+    hence containers can run on foreign IP subnets.
+
+    For example:
+        $ docker network create -d overlay --subnet=192.168.10.0/24 my-overlay-net
+
+Macvlan Network:
+
+    It is used to connect Docker containers directly to the host network interfaces through 
+    layer 2 segmentation.
+
+    Latency in macvlan networks is low since packets are routed directly from Docker host 
+    network interface controller (NIC) to the containers.
+
+    For Example:
+        $ docker network create -d macvlan \
+          --subnet=192.168.40.0/24 \
+          --gateway=192.168.40.1 \
+          -o parent=eth0 my-macvlan-net
+
+Docker communicate with each other:
+
+    Docker will assign a name and hostname to each container created on the default docker0 network, 
+    unless a different name/hostname is specified by the user.
+
     
